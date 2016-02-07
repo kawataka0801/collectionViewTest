@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B157F7E1C6747B6004F3E80 /* ProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B157F7D1C6747B6004F3E80 /* ProfileView.m */; };
+		9B157F811C67B397004F3E80 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B157F801C67B397004F3E80 /* ChannelViewController.m */; };
+		9B157F841C67C1D4004F3E80 /* MylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B157F831C67C1D4004F3E80 /* MylistViewController.m */; };
 		9BFD47DD1C665F7F002E5FC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFD47DC1C665F7F002E5FC8 /* main.m */; };
 		9BFD47E01C665F7F002E5FC8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFD47DF1C665F7F002E5FC8 /* AppDelegate.m */; };
 		9BFD47E31C665F7F002E5FC8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFD47E21C665F7F002E5FC8 /* ViewController.m */; };
@@ -15,6 +18,9 @@
 		9BFD47EB1C665F7F002E5FC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BFD47E91C665F7F002E5FC8 /* LaunchScreen.storyboard */; };
 		9BFD47F61C665F7F002E5FC8 /* CollectionViewTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFD47F51C665F7F002E5FC8 /* CollectionViewTestTests.m */; };
 		9BFD48011C665F7F002E5FC8 /* CollectionViewTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFD48001C665F7F002E5FC8 /* CollectionViewTestUITests.m */; };
+		9BFD48101C665FEA002E5FC8 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFD480F1C665FEA002E5FC8 /* CollectionViewCell.m */; };
+		9BFD48131C66693D002E5FC8 /* CHTCollectionViewWaterfallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFD48121C66693D002E5FC8 /* CHTCollectionViewWaterfallLayout.m */; };
+		9BFD48161C666A65002E5FC8 /* HeaderReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BFD48151C666A65002E5FC8 /* HeaderReusableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B157F7C1C6747B6004F3E80 /* ProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileView.h; sourceTree = "<group>"; };
+		9B157F7D1C6747B6004F3E80 /* ProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileView.m; sourceTree = "<group>"; };
+		9B157F7F1C67B397004F3E80 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
+		9B157F801C67B397004F3E80 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
+		9B157F821C67C1D4004F3E80 /* MylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MylistViewController.h; sourceTree = "<group>"; };
+		9B157F831C67C1D4004F3E80 /* MylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MylistViewController.m; sourceTree = "<group>"; };
 		9BFD47D81C665F7F002E5FC8 /* CollectionViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollectionViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BFD47DC1C665F7F002E5FC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9BFD47DE1C665F7F002E5FC8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +63,12 @@
 		9BFD47FC1C665F7F002E5FC8 /* CollectionViewTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CollectionViewTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BFD48001C665F7F002E5FC8 /* CollectionViewTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewTestUITests.m; sourceTree = "<group>"; };
 		9BFD48021C665F7F002E5FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BFD480E1C665FEA002E5FC8 /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
+		9BFD480F1C665FEA002E5FC8 /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
+		9BFD48111C66693D002E5FC8 /* CHTCollectionViewWaterfallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTCollectionViewWaterfallLayout.h; sourceTree = "<group>"; };
+		9BFD48121C66693D002E5FC8 /* CHTCollectionViewWaterfallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTCollectionViewWaterfallLayout.m; sourceTree = "<group>"; };
+		9BFD48141C666A65002E5FC8 /* HeaderReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderReusableView.h; sourceTree = "<group>"; };
+		9BFD48151C666A65002E5FC8 /* HeaderReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderReusableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +123,19 @@
 				9BFD47DF1C665F7F002E5FC8 /* AppDelegate.m */,
 				9BFD47E11C665F7F002E5FC8 /* ViewController.h */,
 				9BFD47E21C665F7F002E5FC8 /* ViewController.m */,
+				9BFD480E1C665FEA002E5FC8 /* CollectionViewCell.h */,
+				9BFD480F1C665FEA002E5FC8 /* CollectionViewCell.m */,
+				9BFD48141C666A65002E5FC8 /* HeaderReusableView.h */,
+				9BFD48151C666A65002E5FC8 /* HeaderReusableView.m */,
 				9BFD47E41C665F7F002E5FC8 /* Main.storyboard */,
+				9BFD48111C66693D002E5FC8 /* CHTCollectionViewWaterfallLayout.h */,
+				9BFD48121C66693D002E5FC8 /* CHTCollectionViewWaterfallLayout.m */,
+				9B157F7C1C6747B6004F3E80 /* ProfileView.h */,
+				9B157F7D1C6747B6004F3E80 /* ProfileView.m */,
+				9B157F7F1C67B397004F3E80 /* ChannelViewController.h */,
+				9B157F801C67B397004F3E80 /* ChannelViewController.m */,
+				9B157F821C67C1D4004F3E80 /* MylistViewController.h */,
+				9B157F831C67C1D4004F3E80 /* MylistViewController.m */,
 				9BFD47E71C665F7F002E5FC8 /* Assets.xcassets */,
 				9BFD47E91C665F7F002E5FC8 /* LaunchScreen.storyboard */,
 				9BFD47EC1C665F7F002E5FC8 /* Info.plist */,
@@ -207,6 +237,7 @@
 				TargetAttributes = {
 					9BFD47D71C665F7F002E5FC8 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 57YLXY2643;
 					};
 					9BFD47F01C665F7F002E5FC8 = {
 						CreatedOnToolsVersion = 7.2;
@@ -270,8 +301,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B157F841C67C1D4004F3E80 /* MylistViewController.m in Sources */,
+				9BFD48161C666A65002E5FC8 /* HeaderReusableView.m in Sources */,
+				9B157F7E1C6747B6004F3E80 /* ProfileView.m in Sources */,
+				9B157F811C67B397004F3E80 /* ChannelViewController.m in Sources */,
+				9BFD48131C66693D002E5FC8 /* CHTCollectionViewWaterfallLayout.m in Sources */,
 				9BFD47E31C665F7F002E5FC8 /* ViewController.m in Sources */,
 				9BFD47E01C665F7F002E5FC8 /* AppDelegate.m in Sources */,
+				9BFD48101C665FEA002E5FC8 /* CollectionViewCell.m in Sources */,
 				9BFD47DD1C665F7F002E5FC8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,10 +448,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CollectionViewTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = takashikawakami.CollectionViewTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -422,10 +463,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CollectionViewTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = takashikawakami.CollectionViewTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -496,6 +541,7 @@
 				9BFD48071C665F7F002E5FC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9BFD48081C665F7F002E5FC8 /* Build configuration list for PBXNativeTarget "CollectionViewTestTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +550,7 @@
 				9BFD480A1C665F7F002E5FC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9BFD480B1C665F7F002E5FC8 /* Build configuration list for PBXNativeTarget "CollectionViewTestUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +559,7 @@
 				9BFD480D1C665F7F002E5FC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
