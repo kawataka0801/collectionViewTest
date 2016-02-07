@@ -45,19 +45,6 @@ CHTCollectionViewDelegateWaterfallLayout>
     [self.collectionView registerClass:[HeaderReusableView class]
             forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader
                    withReuseIdentifier:@"HeaderReusableView"];
-    
-    [self setupViewControllers];
-}
-
-- (void)setupViewControllers {
-    
-    UIStoryboard *storyboard = self.storyboard;
-    
-    ChannelViewController *channelVc = [storyboard instantiateViewControllerWithIdentifier:@"ChannelViewController"];
-    [self.view addSubview:channelVc.view];
-    
-//    MylistViewController *mylistVc = [storyboard instantiateViewControllerWithIdentifier:@"MylistViewController"];
-//    [self.view addSubview:mylistVc.view];
 }
 
 #pragma mark UICollectionViewDataSource

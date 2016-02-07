@@ -19,11 +19,6 @@
 - (void)loadView
 {
     [super loadView];
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 284, 320, 568 - 284)];
-    self.view = view;
-    
-    [self.view addSubview:_tableView];
 }
 
 - (void)viewDidLoad {
