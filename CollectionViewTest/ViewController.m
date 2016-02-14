@@ -257,7 +257,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewType) {
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout heightForHeaderInSection:(NSInteger)section
 {
     //とりあえずアテ
-    return 230;
+    return 300;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -323,7 +323,7 @@ typedef NS_ENUM(NSUInteger, SelectedType) {
     
     [self showOrHideNavigationBarWithOffset:offsetY];
     
-    NSLog(@"まさかここ %f", offsetY);
+    NSLog(@"スクロール発生 %f", offsetY);
     [self scrollProfileViewWithOffset:offsetY];
 }
 
@@ -338,65 +338,15 @@ typedef NS_ENUM(NSUInteger, SelectedType) {
     
     if (offsetY > self.profileViewHeight - actionViewHeight) {
         offset = self.profileViewHeight - actionViewHeight;
-        NSLog(@"こっち");
-        NSLog(@"え %f", -offset);
-        NSLog(@"お %f", -offset + _navigationBarHeight);
     }else{
         offset = offsetY;
-        NSLog(@"そっち");
-        NSLog(@"え %f", -offset);
-        NSLog(@"お %f", -offset + _navigationBarHeight);
     }
     
-    //64でうえにピッタリになる
     self.profileView.frame = CGRectMake(rect.origin.x,
                                         -offset + _navigationBarHeight,
                                         rect.size.width,
                                         rect.size.height);
 }
-
-/*
- - (void)scrollProfileViewWithOffset:(CGFloat)offsetY
- {
- CGRect rect = self.profileView.frame;
- 
- self.profileView.frame = CGRectMake(rect.origin.x,
- -offsetY,
- rect.size.width,
- rect.size.height);
- }
- */
-
-#pragma mark ボタンが並んでいる部分
-
-/*
- - (void)scrollActionViewForHeaderWithOffset:(CGFloat)offsetY
- {
- int actionViewHeight    = 30;
- 
- if (self.headerActionView.frame.origin.y - (self.navigationBarHeight + actionViewHeight) <= offsetY) {
- [self scrollHeaderActionView:offsetY + self.navigationBarHeight];
- }else{
- [self scrollHeaderActionView:self.navigationBarHeight];
- }
- 
- if (self.headerActionViewOriginalY - (self.navigationBarHeight + actionViewHeight) >= offsetY) {
- [self scrollHeaderActionView:self.headerActionViewOriginalY];
- }
- }
- */
-
-/*
- - (void)scrollHeaderActionView:(CGFloat)y
- {
- [self.headerActionView.layer removeAllAnimations];
- 
- CGRect rect = self.headerActionView.frame;
- rect.origin.y = y;
- self.headerActionView.frame = rect;
- }
- */
-
 
 #pragma mark statusbarとnavigationbar
 
@@ -446,65 +396,38 @@ typedef NS_ENUM(NSUInteger, SelectedType) {
 
 - (IBAction)tapStandUser:(id)sender {
     
-    NSLog(@"タップ");
-    [UIView animateWithDuration:0.3f animations:^{
-        
-        _navigationBarHeight = 64;
-        self.currentIndex = CollectionViewTypeStand;
-        
-        [self.view addSubview:self.collectionView2];
-        [self.view addSubview:self.profileView];
-        
-        //profileの位置、collectionViewの位置、navigationを戻す
-        [self showStatusBarAndNavigationBar];
-        
-        [self scrollProfileViewWithOffset:0];
-        
-        [self setupOffSet:self.collectionView2];
-        
-        [self.collectionView2.collectionViewLayout invalidateLayout];
-        [self.collectionView2 reloadData];
-        
-    }];
+    [self scrollToInitialPostionWithCollectionView:self.collectionView2
+                                collectionViewType:CollectionViewTypeStand];
 }
 
 - (IBAction)tapKamehameha:(id)sender {
     
-    NSLog(@"タップ");
-    [UIView animateWithDuration:0.3f animations:^{
-        
-        _navigationBarHeight = 64;
-        self.currentIndex = CollectionViewTypeKamehameha;
-        
-        [self.view addSubview:self.collectionView];
-        [self.view addSubview:self.profileView];
-        
-        [self showStatusBarAndNavigationBar];
-        [self scrollProfileViewWithOffset:0];
-        [self setupOffSet:self.collectionView];
-        
-        [self.collectionView.collectionViewLayout invalidateLayout];
-        [self.collectionView reloadData];
-    }];
+    [self scrollToInitialPostionWithCollectionView:self.collectionView
+                                collectionViewType:CollectionViewTypeKamehameha];
 }
 
 - (IBAction)tapPiccoro:(id)sender {
     
-    NSLog(@"タップ");
+    [self scrollToInitialPostionWithCollectionView:self.collectionView3
+                                collectionViewType:CollectionViewTypePiccoro];
+}
+
+- (void)scrollToInitialPostionWithCollectionView:(UICollectionView *)collectionView collectionViewType:(CollectionViewType)collectionViewType
+{
     [UIView animateWithDuration:0.3f animations:^{
         
-        _navigationBarHeight = 64;
-        self.currentIndex = CollectionViewTypePiccoro;
-        
-        [self.view addSubview:self.collectionView3];
-        [self.view addSubview:self.profileView];
-        
         [self showStatusBarAndNavigationBar];
-        [self scrollProfileViewWithOffset:0];
-        [self setupOffSet:self.collectionView3];
         
-        [self.collectionView3.collectionViewLayout invalidateLayout];
-        [self.collectionView3 reloadData];
+        _navigationBarHeight = 64;
+        
+        self.currentIndex = collectionViewType;
+        
+        [self.view bringSubviewToFront:collectionView];
+        [self.view bringSubviewToFront:self.profileView];
+        [collectionView.collectionViewLayout invalidateLayout];
+        
+        [self scrollProfileViewWithOffset:0];
+        [self setupOffSet:collectionView];
     }];
 }
 
@@ -517,9 +440,8 @@ typedef NS_ENUM(NSUInteger, SelectedType) {
 
 - (void)setupOffSet:(UICollectionView *)collectionView
 {
-    int topOffset = 64;
-    collectionView.contentInset = UIEdgeInsetsMake(topOffset, 0, 0, 0);
-    collectionView.contentOffset = CGPointMake(0, -topOffset);
+    collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    collectionView.contentOffset = CGPointMake(0, 0);
 }
 
 @end
