@@ -22,7 +22,6 @@ CHTCollectionViewDelegateWaterfallLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView2;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView3;
 
-
 @property (weak, nonatomic) IBOutlet ProfileView *profileView;
 @property (weak, nonatomic) IBOutlet UIView *headerActionView;
 
@@ -31,7 +30,7 @@ CHTCollectionViewDelegateWaterfallLayout>
 
 @property CGFloat preScrollPointY;
 @property CGFloat screenHeight;
-@property CGFloat headerActionViewOriginalY;
+@property CGFloat profileViewHeight;
 @property int navigationBarHeight;
 
 @property int currentIndex;
@@ -56,7 +55,7 @@ CHTCollectionViewDelegateWaterfallLayout>
     
     [super viewDidLoad];
     
-    _headerActionViewOriginalY = CGRectGetMinY(self.headerActionView.frame);
+    _profileViewHeight = CGRectGetHeight(self.profileView.frame);
     
     [self registerHeaderView];
     
@@ -253,27 +252,6 @@ typedef NS_ENUM(NSUInteger, CollectionViewType) {
     return UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
-#pragma mark scroll
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scrollViewDidScroll:) object:nil];
-    
-    CGFloat offsetY = scrollView.contentOffset.y;
-    
-    if (offsetY >= (scrollView.contentSize.height - self.screenHeight) ) {
-        return;
-    }
-    if (self.isProccessing) {
-        return;
-    }
-    
-    [self scrollProfileViewWithOffset:offsetY];
-    
-    [self scrollActionViewForHeaderWithOffset:offsetY];
-    
-    [self showOrHideNavigationBarWithOffset:offsetY];
-}
 #pragma mark ヘッダ
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout heightForHeaderInSection:(NSInteger)section
@@ -281,7 +259,6 @@ typedef NS_ENUM(NSUInteger, CollectionViewType) {
     //とりあえずアテ
     return 230;
 }
-
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -329,43 +306,97 @@ typedef NS_ENUM(NSUInteger, SelectedType) {
     }
 }
 
+#pragma mark scroll
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scrollViewDidScroll:) object:nil];
+    
+    CGFloat offsetY = scrollView.contentOffset.y;
+   
+    if (offsetY >= (scrollView.contentSize.height - self.screenHeight) ) {
+        return;
+    }
+    if (self.isProccessing) {
+        return;
+    }
+    
+    [self showOrHideNavigationBarWithOffset:offsetY];
+    
+    NSLog(@"まさかここ %f", offsetY);
+    [self scrollProfileViewWithOffset:offsetY];
+}
+
 #pragma mark プロフィール部分
 
 - (void)scrollProfileViewWithOffset:(CGFloat)offsetY
 {
     CGRect rect = self.profileView.frame;
     
+    CGFloat offset;
+    int actionViewHeight = 30;
+    
+    if (offsetY > self.profileViewHeight - actionViewHeight) {
+        offset = self.profileViewHeight - actionViewHeight;
+        NSLog(@"こっち");
+        NSLog(@"え %f", -offset);
+        NSLog(@"お %f", -offset + _navigationBarHeight);
+    }else{
+        offset = offsetY;
+        NSLog(@"そっち");
+        NSLog(@"え %f", -offset);
+        NSLog(@"お %f", -offset + _navigationBarHeight);
+    }
+    
+    //64でうえにピッタリになる
     self.profileView.frame = CGRectMake(rect.origin.x,
-                                        -offsetY,
+                                        -offset + _navigationBarHeight,
                                         rect.size.width,
-                                        rect.size.height);   
+                                        rect.size.height);
 }
+
+/*
+ - (void)scrollProfileViewWithOffset:(CGFloat)offsetY
+ {
+ CGRect rect = self.profileView.frame;
+ 
+ self.profileView.frame = CGRectMake(rect.origin.x,
+ -offsetY,
+ rect.size.width,
+ rect.size.height);
+ }
+ */
 
 #pragma mark ボタンが並んでいる部分
 
-- (void)scrollActionViewForHeaderWithOffset:(CGFloat)offsetY
-{
-    int actionViewHeight    = 30;
-    
-    if (self.headerActionView.frame.origin.y - (self.navigationBarHeight + actionViewHeight) <= offsetY) {
-        [self scrollHeaderActionView:offsetY + self.navigationBarHeight];
-    }else{
-        [self scrollHeaderActionView:self.navigationBarHeight];
-    }
-    
-    if (self.headerActionViewOriginalY - (self.navigationBarHeight + actionViewHeight) >= offsetY) {
-        [self scrollHeaderActionView:self.headerActionViewOriginalY];
-    }
-}
+/*
+ - (void)scrollActionViewForHeaderWithOffset:(CGFloat)offsetY
+ {
+ int actionViewHeight    = 30;
+ 
+ if (self.headerActionView.frame.origin.y - (self.navigationBarHeight + actionViewHeight) <= offsetY) {
+ [self scrollHeaderActionView:offsetY + self.navigationBarHeight];
+ }else{
+ [self scrollHeaderActionView:self.navigationBarHeight];
+ }
+ 
+ if (self.headerActionViewOriginalY - (self.navigationBarHeight + actionViewHeight) >= offsetY) {
+ [self scrollHeaderActionView:self.headerActionViewOriginalY];
+ }
+ }
+ */
 
-- (void)scrollHeaderActionView:(CGFloat)y
-{
-    [self.headerActionView.layer removeAllAnimations];
-    
-    CGRect rect = self.headerActionView.frame;
-    rect.origin.y = y;
-    self.headerActionView.frame = rect;
-}
+/*
+ - (void)scrollHeaderActionView:(CGFloat)y
+ {
+ [self.headerActionView.layer removeAllAnimations];
+ 
+ CGRect rect = self.headerActionView.frame;
+ rect.origin.y = y;
+ self.headerActionView.frame = rect;
+ }
+ */
+
 
 #pragma mark statusbarとnavigationbar
 
@@ -415,51 +446,66 @@ typedef NS_ENUM(NSUInteger, SelectedType) {
 
 - (IBAction)tapStandUser:(id)sender {
     
-    self.currentIndex = CollectionViewTypeStand;
-    
-    [self.view addSubview:self.collectionView2];
-    [self.view addSubview:self.profileView];
-    
-    //profileの位置、collectionViewの位置、navigationを戻す
-    [self showStatusBarAndNavigationBar];
-    
-    [self scrollProfileViewWithOffset:-64];
-    
-    [self setupOffSet:self.collectionView2];
-    
-    [self.collectionView2.collectionViewLayout invalidateLayout];
-    [self.collectionView2 reloadData];
-
+    NSLog(@"タップ");
+    [UIView animateWithDuration:0.3f animations:^{
+        
+        _navigationBarHeight = 64;
+        self.currentIndex = CollectionViewTypeStand;
+        
+        [self.view addSubview:self.collectionView2];
+        [self.view addSubview:self.profileView];
+        
+        //profileの位置、collectionViewの位置、navigationを戻す
+        [self showStatusBarAndNavigationBar];
+        
+        [self scrollProfileViewWithOffset:0];
+        
+        [self setupOffSet:self.collectionView2];
+        
+        [self.collectionView2.collectionViewLayout invalidateLayout];
+        [self.collectionView2 reloadData];
+        
+    }];
 }
 
 - (IBAction)tapKamehameha:(id)sender {
     
-    self.currentIndex = CollectionViewTypeKamehameha;
-    
-    [self.view addSubview:self.collectionView];
-    [self.view addSubview:self.profileView];
-    
-    [self showStatusBarAndNavigationBar];
-    [self scrollProfileViewWithOffset:-64];
-    [self setupOffSet:self.collectionView];
-    
-    [self.collectionView.collectionViewLayout invalidateLayout];
-    [self.collectionView reloadData];
+    NSLog(@"タップ");
+    [UIView animateWithDuration:0.3f animations:^{
+        
+        _navigationBarHeight = 64;
+        self.currentIndex = CollectionViewTypeKamehameha;
+        
+        [self.view addSubview:self.collectionView];
+        [self.view addSubview:self.profileView];
+        
+        [self showStatusBarAndNavigationBar];
+        [self scrollProfileViewWithOffset:0];
+        [self setupOffSet:self.collectionView];
+        
+        [self.collectionView.collectionViewLayout invalidateLayout];
+        [self.collectionView reloadData];
+    }];
 }
 
 - (IBAction)tapPiccoro:(id)sender {
     
-    self.currentIndex = CollectionViewTypePiccoro;
-    
-    [self.view addSubview:self.collectionView3];
-    [self.view addSubview:self.profileView];
-    
-    [self showStatusBarAndNavigationBar];
-    [self scrollProfileViewWithOffset:-64];
-    [self setupOffSet:self.collectionView3];
-    
-    [self.collectionView3.collectionViewLayout invalidateLayout];
-    [self.collectionView3 reloadData];
+    NSLog(@"タップ");
+    [UIView animateWithDuration:0.3f animations:^{
+        
+        _navigationBarHeight = 64;
+        self.currentIndex = CollectionViewTypePiccoro;
+        
+        [self.view addSubview:self.collectionView3];
+        [self.view addSubview:self.profileView];
+        
+        [self showStatusBarAndNavigationBar];
+        [self scrollProfileViewWithOffset:0];
+        [self setupOffSet:self.collectionView3];
+        
+        [self.collectionView3.collectionViewLayout invalidateLayout];
+        [self.collectionView3 reloadData];
+    }];
 }
 
 - (void)showStatusBarAndNavigationBar
