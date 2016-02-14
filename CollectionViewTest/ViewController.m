@@ -256,8 +256,8 @@ typedef NS_ENUM(NSUInteger, CollectionViewType) {
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout heightForHeaderInSection:(NSInteger)section
 {
-    //とりあえずアテ
-    return 300;
+    //とりあえずアテ。ヘッダ部分でオフセットの調整
+    return 236 + _navigationBarHeight;
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -323,7 +323,6 @@ typedef NS_ENUM(NSUInteger, SelectedType) {
     
     [self showOrHideNavigationBarWithOffset:offsetY];
     
-    NSLog(@"スクロール発生 %f", offsetY);
     [self scrollProfileViewWithOffset:offsetY];
 }
 
@@ -361,12 +360,18 @@ typedef NS_ENUM(NSUInteger, SelectedType) {
     if (scrollGap > 0) {
         [self changeStatusAndNavigationHidden:YES];
         _navigationBarHeight = 0;
+        //ここらでいじくる??
     }else{
         [self changeStatusAndNavigationHidden:NO];
         _navigationBarHeight = 64;
     }
     
-    _preScrollPointY = offsetY;   
+    //あとでcurrentCollectionViewとかで保持しておいてパフォーマンスは考える
+    [self.collectionView.collectionViewLayout invalidateLayout];
+    [self.collectionView2.collectionViewLayout invalidateLayout];
+    [self.collectionView3.collectionViewLayout invalidateLayout];
+    
+    _preScrollPointY = offsetY;
 }
 
 - (void)changeStatusAndNavigationHidden:(BOOL)boolean
